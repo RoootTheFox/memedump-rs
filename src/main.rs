@@ -14,11 +14,11 @@ fn get_mysql_connection() -> PooledConn {
 
 async fn echo(req: Request<Body>) -> Result<Response<Body>, hyper::Error> {
     match (req.method(), req.uri().path()) {
-        (&Method::POST, "/api/addmeme") => api::addmeme(req).await,
+        (&Method::POST, "/api/addmeme") => api::add_meme(req).await,
 
-        (&Method::GET, "/api/getmemes") => api::getmemes(req).await,
+        (&Method::GET, "/api/getmemes") => api::get_memes(req).await,
 
-        (&Method::GET, "/api/get") => api::getmeme(req).await,
+        (&Method::GET, "/api/get") => api::get_meme(req).await,
 
         (&Method::GET, "/debug") => Ok(Response::new(Body::from("ass"))),
 

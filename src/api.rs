@@ -5,12 +5,11 @@ use url::Url;
 use crate::structs::{DatabaseMeme, IndexResultMeme, Meme, ResponseMeme};
 
 use std::collections::hash_map::DefaultHasher;
-use std::fmt::format;
 use std::hash::Hasher;
 use std::process::Command;
 use crate::HeaderValue;
 
-pub async fn addmeme(req: Request<Body>) -> Result<Response<Body>, hyper::Error> {
+pub async fn add_meme(req: Request<Body>) -> Result<Response<Body>, hyper::Error> {
     let body = hyper::body::to_bytes(req.into_body()).await?;
     let body = String::from_utf8(Vec::from(body)).unwrap();
 
@@ -73,7 +72,7 @@ pub async fn addmeme(req: Request<Body>) -> Result<Response<Body>, hyper::Error>
     )))
 }
 
-pub async fn getmemes(req: Request<Body>) -> Result<Response<Body>, hyper::Error> {
+pub async fn get_memes(req: Request<Body>) -> Result<Response<Body>, hyper::Error> {
     let uri_string = String::from("https://localhost") + &*req.uri().to_string();
     let request_url = Url::parse(&uri_string).unwrap();
     let params = request_url.query_pairs();
@@ -127,7 +126,7 @@ pub async fn getmemes(req: Request<Body>) -> Result<Response<Body>, hyper::Error
     Ok(response)
 }
 
-pub async fn getmeme(req: Request<Body>) -> Result<Response<Body>, hyper::Error> {
+pub async fn get_meme(req: Request<Body>) -> Result<Response<Body>, hyper::Error> {
     let uri_string = String::from("https://localhost") + &*req.uri().to_string(); // dumb workaround
 
     let request_url = Url::parse(&uri_string).unwrap();
