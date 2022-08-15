@@ -1,6 +1,23 @@
+:root {
+    --meme-width: 200px;
+    --meme-height: 150px;
+}
+
+/* same properties as video */
 .meme-thumbnail {
-    width: 200px;
-    height: 150px;
+    width: var(--meme-width);
+    height: var(--meme-height);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    object-fit: contain;
+}
+
+/* same properties as thumbnail */
+.meme-video {
+    width: var(--meme-width);
+    height: var(--meme-height);
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-right: 10px;
@@ -21,9 +38,18 @@
     margin-top: 48px;
     font-size: 16px;
     color: white;
-    max-width: 248px;
+    max-width: 333px;
+    width: 100%;
+    max-height: 46px;
 }
 
 .meme {
+    margin-left: 10%;
     width: 250px;
+}
+
+.hidden {
+    width: 0;
+    height: 0;
+    display: none;
 }

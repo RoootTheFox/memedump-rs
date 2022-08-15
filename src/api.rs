@@ -76,12 +76,12 @@ pub async fn addmeme(req: Request<Body>) -> Result<Response<Body>, hyper::Error>
 pub async fn getmemes(req: Request<Body>) -> Result<Response<Body>, hyper::Error> {
     let uri_string = String::from("https://localhost") + &*req.uri().to_string();
     let request_url = Url::parse(&uri_string).unwrap();
-    let yes = request_url.query_pairs();
+    let params = request_url.query_pairs();
 
     let mut page = 0;
     let mut amount = 25;
 
-    yes.for_each(|(key, value)| {
+    params.for_each(|(key, value)| {
         if key == "page" {
             page = value.parse::<i32>().expect("Could not parse value as i32");
 
@@ -131,11 +131,11 @@ pub async fn getmeme(req: Request<Body>) -> Result<Response<Body>, hyper::Error>
     let uri_string = String::from("https://localhost") + &*req.uri().to_string(); // dumb workaround
 
     let request_url = Url::parse(&uri_string).unwrap();
-    let yes = request_url.query_pairs();
+    let params = request_url.query_pairs();
 
     let mut id = 1;
 
-    yes.for_each(|(key, value)| {
+    params.for_each(|(key, value)| {
         if key == "id" {
             id = value.parse::<i32>().expect("Could not parse value as i32");
         }

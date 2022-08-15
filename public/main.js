@@ -14,7 +14,7 @@ const getJSON = async url => {
 
 async function loadMeme(id) {
     console.log("loading meme with id " + id);
-    return await getJSON("/api/getmeme?id="+id);
+    return await getJSON("/api/get?id="+id);
 }
 
 function playMeme(id) {
@@ -22,13 +22,28 @@ function playMeme(id) {
     console.log(id);
     console.log(meme);
 
-    if (memes.length === 0 || memes["meme-"+id] === undefined) {
-        loadMeme(id).then(res => {
-            memes["meme-"+id] = res;
-            meme.src = b64toBlob(res.data);
-            meme.play();
-        });
-    }
+    loadMeme(id).then(res => {
+        memes["meme-"+id] = res;
+        let src = b64toBlob(res.data);
+        console.log(src);
+        let parent = document.getElementById("meme-"+id);
+        let video = parent.children[0];
+        let image = parent.children[1];
+        video.src = URL.createObjectURL(src);
+
+        // hide thumbnail
+        image.classList.add("hidden");
+        video.classList.remove("meme-thumbnail");
+
+        // show video
+        video.classList.remove("hidden");
+        video.classList.add("meme-video");
+
+        // play video
+        video.play();
+
+        video.setAttribute("controls","true");
+    });
 }
 
 // https://stackoverflow.com/a/16245768/19242257
@@ -65,6 +80,9 @@ getJSON("api/getmemes").then(data => {
         meme.className = "meme";
         meme.id = "meme-"+id;
 
+        let meme_video = document.createElement("video");
+        meme_video.className = "hidden";
+
         let meme_thumbnail = document.createElement("img");
         meme_thumbnail.src = thumbnail_b64;
         meme_thumbnail.className = "meme-thumbnail";
@@ -80,6 +98,7 @@ getJSON("api/getmemes").then(data => {
         meme_details.className = "meme-details";
         meme_details.innerHTML = details;
 
+        meme.appendChild(meme_video); // important: video must be first child
         meme.appendChild(meme_thumbnail);
         meme.appendChild(meme_title);
         meme.appendChild(meme_details);
