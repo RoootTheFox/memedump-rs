@@ -3,6 +3,10 @@
     --meme-height: 150px;
 }
 
+* {
+    font-family: Riffic,serif;
+}
+
 /* same properties as video */
 .meme-thumbnail {
     width: var(--meme-width);

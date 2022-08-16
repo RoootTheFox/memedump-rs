@@ -79,7 +79,7 @@ async fn echo(req: Request<Body>) -> Result<Response<Body>, hyper::Error> {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
-    let http_addr = ([127, 0, 0, 1], 3000).into();
+    let http_addr = ([0, 0, 0, 0], 3000).into();
 
     let http_service = make_service_fn(move |_| { // first move it into the closure
         // closure can be called multiple times, so for each call, we must

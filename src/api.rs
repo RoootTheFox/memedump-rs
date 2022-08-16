@@ -89,6 +89,10 @@ pub async fn get_memes(req: Request<Body>) -> Result<Response<Body>, hyper::Erro
             amount = value.parse::<i32>().expect("Could not parse value as i32");
 
         }
+        if key == "query" {
+            println!("query: {}", value);
+        }
+
     });
     println!("page: {}", page);
     println!("per page: {}", amount);
