@@ -2,7 +2,7 @@ use std::ptr::hash;
 use hyper::{Body, Request, Response};
 use mysql::prelude::Queryable;
 use url::Url;
-use crate::structs::{DatabaseMeme, IndexResultMeme, Meme, ResponseMeme};
+use crate::structs::{ApiResponse, DatabaseMeme, IndexResultMeme, Meme, ResponseMeme};
 
 use std::collections::hash_map::DefaultHasher;
 use std::hash::Hasher;
@@ -66,9 +66,15 @@ pub async fn add_meme(req: Request<Body>) -> Result<Response<Body>, hyper::Error
                     &data.len())
     ).expect("Could not insert meme");
 
+    let response = serde_json::to_string(&ApiResponse {
+        success: true,
+        message: "Meme added successfully".to_string(),
+        data: "".parse().unwrap()
+    }).unwrap();
+
     //println!("{}", body);
     Ok(Response::new(Body::from(
-        "Hello World"
+        response
     )))
 }
 

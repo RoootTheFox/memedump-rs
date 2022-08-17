@@ -1,6 +1,13 @@
 use serde::{Serialize, Deserialize};
 
 #[derive(Serialize, Deserialize)]
+pub struct ApiResponse {
+    pub(crate) success: bool,
+    pub(crate) message: String,
+    pub(crate) data: String
+}
+
+#[derive(Serialize, Deserialize)]
 pub struct DatabaseMeme {
     pub(crate) id: i32,
     pub(crate) title: String,

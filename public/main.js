@@ -66,7 +66,6 @@ const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
     return new Blob(byteArrays, {type: contentType});
 }
 
-
 getJSON("api/getmemes").then(data => {
     let memeContainer = document.getElementById("memes");
     for(let i = 0; i < data.length; i++) {
